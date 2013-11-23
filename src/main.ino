@@ -7,6 +7,7 @@
 
 //            0xGGBBRR
 //#define COLOR 0x00FF33
+#define OFF   0x000000
 #define COLOR 0xFF0000
 #define RED   0x0000FF
 #define BLUE  0x00FF00
@@ -20,7 +21,6 @@
  * - move #defines into constants?
  * - write new cool methods (effects and such)
  * - interactive sensors
- * - figure out vim workflow
  * - buy AVR book
  * - read C books
  * - fix color specification byte order (want RGB)
@@ -30,25 +30,28 @@
  * Main
  *********************************/
  void setup() {
+
+  //Serial.begin(9600);
+
   // set the pinout
   STRIP_PINOUT;
-  
-  // horrible sync issues occur without this
-  noInterrupts();
-  
+
   // blank out the strip
   strip_clear();
-  
+
   // I seem to need this, though I don't know why
   delay(250);
 }
 
 void loop() {
+  //delay(250);
+  sequence_radiate(COLOR);
+  //sequence_scroll(COLOR);
   // write solid colors to the strip
-  strip_push_solid(COLOR);
+  //strip_push_solid(COLOR);
   
   // there's really no need to do a lot of writing to the LEDs right now
-  delay(1000 * 60 * 60 * 24);
+  //delay(1000 * 60 * 60 * 24);
 }
 
 /* @todo: move these to a library */
@@ -77,12 +80,12 @@ void strip_push_solid(uint32_t color) {
 /**********************************
  * Segment
  *********************************/
-void segment_push(uint32_t data) {
+void segment_push(uint32_t color) {
   unsigned long j = 0x800000;
   
   // step through the bits of the byte
   for (byte i = 0; i < 24; i++) {
-    (data & j) ? high() : low();
+    (color & j) ? high() : low();
     j>>=1;
   }  
 } 
@@ -103,3 +106,55 @@ void low() {
   DATA_0;
   __asm__(NOP NOP NOP);  
 }
+
+
+/**********************************
+ * Sequences
+ *********************************/
+void sequence_radiate(uint32_t color) {
+  strip_clear();
+
+  uint32_t sequence[6][10] = {
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , COLOR , COLOR , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , COLOR , COLOR , COLOR , COLOR , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , COLOR , COLOR , COLOR , COLOR , COLOR , COLOR , OFF   , OFF}   ,
+    {OFF   , COLOR , COLOR , COLOR , COLOR , COLOR , COLOR , COLOR , COLOR , OFF}   ,
+    {COLOR , COLOR , COLOR , COLOR , COLOR , COLOR , COLOR , COLOR , COLOR , COLOR} ,
+  };
+
+  for (byte i = 0; i < 6; i++) {
+    noInterrupts();
+    for (byte j = 0; j < 10; j++) {
+      segment_push(sequence[i][j]);
+    }
+    interrupts();
+    delay(500);
+  }
+} 
+
+void sequence_scroll(uint32_t color) {
+  strip_clear();
+
+  uint32_t sequence[10][10] = {
+    {COLOR , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , COLOR , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , COLOR , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , COLOR , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , COLOR , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , COLOR , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , COLOR , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , COLOR , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , COLOR , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , COLOR} ,
+  };
+
+  for (byte i = 0; i < 10; i++) {
+    noInterrupts();
+    for (byte j = 0; j < 10; j++) {
+      segment_push(sequence[i][j]);
+    }
+    interrupts();
+    delay(500);
+  }
+} 
