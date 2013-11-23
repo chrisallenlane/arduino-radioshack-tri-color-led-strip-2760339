@@ -3,8 +3,9 @@
 #include "Arduino.h"
 #include "strip.h"
 
-Strip::Strip(byte number_of_segments) {
+Strip::Strip(byte number_of_segments, unsigned short animation_delay) {
   this->_number_of_segments = number_of_segments;
+  this->_animation_delay    = animation_delay;
 }
 
 void Strip::clear() {
@@ -36,7 +37,7 @@ void Strip::sequence_radiate(uint32_t color) {
 
   for (byte i = 0; i < 6; i++) {
     Strip::write(sequence[i]);
-    delay(500);
+    delay(this->_animation_delay);
   }
 } 
 
@@ -59,15 +60,46 @@ void Strip::sequence_scroll(uint32_t color) {
 
   for (byte i = 0; i < 10; i++) {
     Strip::write(sequence[i]);
-    delay(500);
+    delay(this->_animation_delay);
   }
 } 
 
 void Strip::sequence_solid(uint32_t color) {
+  noInterrupts();
   for (byte i = 0; i < this->_number_of_segments; i++) {
     Segment::write(color);
   }
+  interrupts();
 }
 
 
-// @todo: play_sequence() and abstraction
+void Strip::sequence_cylon(uint32_t color) {
+  this->clear();
+
+  // @todo: make number of lights in strip configurable
+  uint32_t sequence[18][10] = {
+    {color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , color , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , color , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , color , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , color , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , color , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , color} ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , color , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , color , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , color , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , OFF   , color , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , OFF   , color , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , OFF   , color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , OFF   , color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+    {OFF   , color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
+  };
+
+  for (byte i = 0; i < 18; i++) {
+    Strip::write(sequence[i]);
+    delay(this->_animation_delay);
+  }
+} 

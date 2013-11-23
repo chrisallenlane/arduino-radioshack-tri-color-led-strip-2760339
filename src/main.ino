@@ -10,9 +10,8 @@
 #define STRIP_PINOUT (DDRC=0xFF)  // for UNO
 
 //            0xGGBBRR
-//#define COLOR 0x00FF33
+#define COLOR 0x00FF33
 #define OFF   0x000000
-#define COLOR 0xFF0000
 #define RED   0x0000FF
 #define BLUE  0x00FF00
 #define GREEN 0xFF0000
@@ -27,7 +26,7 @@
 
 
 // initialize our strip
-Strip strip(10);
+Strip strip(10, 25);
 
 
 void setup() {
@@ -43,9 +42,8 @@ void setup() {
 
 
 void loop() {
-  delay(250);
-
-  //strip.push_solid(COLOR);
   //strip.sequence_radiate(COLOR);
-  strip.sequence_scroll(COLOR);
+  //strip.sequence_scroll(COLOR);
+  //strip.sequence_solid(COLOR);
+  strip.sequence_cylon(RED);
 }
