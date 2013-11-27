@@ -4,6 +4,8 @@
  * - Write to PROGMEM where appropriate
  * - Segment methods: alpha(), rgb(), fadeBy(), fadeTo()?
  * - Comments (autodocs?) and README
+ * - Pass arguments via structs?
+ * - expose strip.animation_delay
  */
 
 #define STRIP_PINOUT (DDRC=0xFF)  // for UNO
@@ -16,9 +18,13 @@
 #include "../lib/segment.cpp"
 #include "../lib/strip.cpp"
 
-Strip strip(10, 50);
+Strip strip(10, 25);
   
 void setup() {
+
+
+  Serial.begin(9600);
+
   // set the pinout
   STRIP_PINOUT;
 
@@ -28,6 +34,9 @@ void setup() {
 }
 
 void loop() {
+
+  // @todo: write some example sequences here
+  /*
   uint32_t red    = 0xFF0000FF;
   uint32_t orange = 0xFFA500FF;
   uint32_t yellow = 0xFFFF00FF;
@@ -36,7 +45,11 @@ void loop() {
   uint32_t indigo = 0x4B0082FF;
   uint32_t violet = 0x82EE82FF;
   uint32_t white  = 0xFFFFFFFF;
+  */
+  
+  delay(500);
 
-  strip.sequence_scroll(orange);
-  strip.sequence_scroll(red);
+  strip.sequence_solid(0x0000FFFF);
+  strip.sequence_fadeout();
+  strip.sequence_fadein();
 }

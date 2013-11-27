@@ -39,6 +39,14 @@ void Strip::sequence_solid(uint32_t color) {
 }
 
 
+void Strip::alpha(uint32_t alpha) {
+  for (byte i = 0; i < this->_number_of_segments; i++) {
+    this->segments[i].alpha(alpha);
+  }
+  this->write();
+}
+
+
 void Strip::sequence_radiate(uint32_t color) {
   this->clear();
 
@@ -116,3 +124,21 @@ void Strip::sequence_cylon(uint32_t color) {
     delay(this->_animation_delay);
   }
 } 
+
+
+void Strip::sequence_fadeout() {
+  while(this->segments[0].alpha()) {
+    this->alpha(this->segments[0].alpha() - 1);
+    this->write();
+    delay(this->_animation_delay);
+  }
+}
+
+
+void Strip::sequence_fadein() {
+  while(this->segments[0].alpha() < 255) {
+    this->alpha(this->segments[0].alpha() + 1);
+    this->write();
+    delay(this->_animation_delay);
+  }
+}
