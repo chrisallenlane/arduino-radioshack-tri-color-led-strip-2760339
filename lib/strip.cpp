@@ -9,9 +9,11 @@ Strip::Strip(byte number_of_segments, unsigned short animation_delay) {
 }
 
 void Strip::clear() {
+  noInterrupts();
   for(byte i = 0; i < this->_number_of_segments; i++) {
     Segment::write(0x000000);
   }
+  interrupts();
 }
 
 void Strip::write(uint32_t colors[]) {
