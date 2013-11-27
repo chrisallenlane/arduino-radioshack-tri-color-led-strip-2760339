@@ -9,21 +9,26 @@ Strip::Strip(byte number_of_segments, unsigned short animation_delay) {
 }
 
 void Strip::clear() {
-  noInterrupts();
-  for(byte i = 0; i < this->_number_of_segments; i++) {
-    Segment::write(0x000000);
-  }
-  interrupts();
+  this->sequence_solid(0x00000000);
 }
 
-void Strip::write(uint32_t colors[]) {
+void Strip::write() {
   noInterrupts();
   for (byte i = 0; i < this->_number_of_segments; i++) {
-    Segment::write(colors[i]);
+    this->segments[i].write();
   }
   interrupts();
 }
 
+
+void Strip::sequence_solid(uint32_t color) {
+  for (byte i = 0; i < this->_number_of_segments; i++) {
+    this->segments[i].color(color);
+  }
+  this->write();
+}
+
+/*
 void Strip::sequence_radiate(uint32_t color) {
   this->clear();
 
@@ -66,14 +71,6 @@ void Strip::sequence_scroll(uint32_t color) {
   }
 } 
 
-void Strip::sequence_solid(uint32_t color) {
-  noInterrupts();
-  for (byte i = 0; i < this->_number_of_segments; i++) {
-    Segment::write(color);
-  }
-  interrupts();
-}
-
 
 void Strip::sequence_cylon(uint32_t color) {
   this->clear();
@@ -105,3 +102,4 @@ void Strip::sequence_cylon(uint32_t color) {
     delay(this->_animation_delay);
   }
 } 
+*/
