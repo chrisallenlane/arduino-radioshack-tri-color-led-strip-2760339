@@ -4,17 +4,43 @@
 #include "strip.h"
 
 
+/**
+ * Default constructor
+ *
+ * @return void
+ */
 Strip::Strip(byte number_of_segments, unsigned short animation_delay) {
   this->_number_of_segments = number_of_segments;
   this->_animation_delay    = animation_delay;
 }
 
-
-void Strip::clear() {
-  this->sequence_solid(0x00000000);
+/**
+ * Sets the alpha of every segment on the strip to the supplied alpha value
+ *
+ * @param uint32_t alpha
+ * @return void
+ */
+void Strip::alpha(uint32_t alpha) {
+  for (byte i = 0; i < this->_number_of_segments; i++) {
+    this->segments[i].alpha(alpha);
+  }
+  this->write();
 }
 
 
+/**
+ * Blanks out the strip
+ *
+ * @return void
+ */
+void Strip::clear() {
+  this->sequence_solid(0x0);
+}
+
+
+/**
+ * Reads an array of bytes
+ */
 void Strip::read(uint32_t sequence[]) {
   for (byte i = 0; i < this->_number_of_segments; i++) {
     this->segments[i].color(sequence[i]);
@@ -22,6 +48,12 @@ void Strip::read(uint32_t sequence[]) {
 }
 
 
+/**
+ * Pushes bytes out to the physical strip. It does this by flushing the color
+ * buffers of each segment iteratively.
+ *
+ * @return void
+ */
 void Strip::write() {
   noInterrupts();
   for (byte i = 0; i < this->_number_of_segments; i++) {
@@ -31,17 +63,12 @@ void Strip::write() {
 }
 
 
+/*****************************************************************************
+ * Sequences
+ ****************************************************************************/
 void Strip::sequence_solid(uint32_t color) {
   for (byte i = 0; i < this->_number_of_segments; i++) {
     this->segments[i].color(color);
-  }
-  this->write();
-}
-
-
-void Strip::alpha(uint32_t alpha) {
-  for (byte i = 0; i < this->_number_of_segments; i++) {
-    this->segments[i].alpha(alpha);
   }
   this->write();
 }

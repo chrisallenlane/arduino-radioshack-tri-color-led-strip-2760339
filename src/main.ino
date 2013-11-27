@@ -1,11 +1,13 @@
 /**
  * @todo:
- * - More sequences
+ * - More sequences (strobe)
  * - Write to PROGMEM where appropriate
- * - Segment methods: alpha(), rgb(), fadeBy(), fadeTo()?
+ * - Segment methods: rgb()
  * - Comments (autodocs?) and README
  * - Pass arguments via structs?
  * - expose strip.animation_delay
+ * - Convert into "proper" library?
+ * - name and publish
  */
 
 #define STRIP_PINOUT (DDRC=0xFF)  // for UNO
