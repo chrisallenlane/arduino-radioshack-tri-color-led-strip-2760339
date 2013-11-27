@@ -1,20 +1,12 @@
 /**
  * @todo:
- * - move #defines into constants?
- * - interactive sensors
- * - buy AVR book
- * - read C books
- * - fix color specification byte order (want RGB)
+ * - RGBA support
+ * - Sequence class
+ * - Segment::write() -> Segment::buffer()
+ * - Make segements individually addressible with overloaded color() method
+ * - More sequences
  */
-
 #define STRIP_PINOUT (DDRC=0xFF)  // for UNO
-
-//            0xGGBBRR
-#define COLOR 0x00FF33
-#define OFF   0x000000
-#define RED   0xFF0000
-#define GREEN 0x00FF00
-#define BLUE  0x0000FF
 
 #include <avr/pgmspace.h>
 
@@ -44,20 +36,40 @@ void setup() {
 
 
 void loop() {
-  uint32_t red    = 0xFF0000;
-  uint32_t orange = 0xFFA500;
-  uint32_t yellow = 0xFFFF00;
-  uint32_t green  = 0x00FF00;
-  uint32_t blue   = 0x0000FF;
-  uint32_t indigo = 0x4B0082;
-  uint32_t violet = 0x82EE82;
-  uint32_t white  = 0xFFFFFF;
+  uint32_t red    = 0xFF0000FF;
+  uint32_t orange = 0xFFA500FF;
+  uint32_t yellow = 0xFFFF00FF;
+  uint32_t green  = 0x00FF00FF;
+  uint32_t blue   = 0x0000FFFF;
+  uint32_t indigo = 0x4B0082FF;
+  uint32_t violet = 0x82EE82FF;
+  uint32_t white  = 0xFFFFFFFF;
+
+  /*
+  uint32_t red    = 0xFF000066;
+  uint32_t orange = 0xFFA50066;
+  uint32_t yellow = 0xFFFF0066;
+  uint32_t green  = 0x00FF0066;
+  uint32_t blue   = 0x0000FF66;
+  uint32_t indigo = 0x4B008266;
+  uint32_t violet = 0x82EE8266;
+  uint32_t white  = 0xFFFFFF66;
+  */
 
   strip.clear();
   delay(2000);
 
   strip.sequence_solid(red);
   delay(1000);
+  strip.sequence_solid(0xFF000055);
+  delay(1000);
+  strip.sequence_solid(0xFF000022);
+  delay(1000);
+  strip.sequence_solid(0xFF000002);
+  delay(1000);
+  strip.sequence_solid(0xFF000000);
+  delay(1000);
+  /*
   strip.sequence_solid(orange);
   delay(1000);
   strip.sequence_solid(yellow);
@@ -72,4 +84,5 @@ void loop() {
   delay(1000);
   strip.sequence_solid(white);
   delay(1000);
+  */
 }
