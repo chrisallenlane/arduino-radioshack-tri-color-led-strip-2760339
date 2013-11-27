@@ -20,11 +20,11 @@ class Strip {
     void sequence_scroll(uint32_t color);
     void sequence_solid(uint32_t color);
 
+    unsigned short animation_delay;
     Segment segments[10];
 
   private:
     byte _number_of_segments;
-    unsigned short _animation_delay;
 };
 
 #endif

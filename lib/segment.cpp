@@ -32,7 +32,7 @@ void Segment::color(uint32_t color) {
   uint32_t blue    = (uint32_t) this->_blue  * mod;
 
   // assemble a GBR byte
-  this->_grb = (green << 16) | (blue << 8) | red;
+  this->_gbr = (green << 16) | (blue << 8) | red;
 }
 
 

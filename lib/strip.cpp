@@ -11,7 +11,7 @@
  */
 Strip::Strip(byte number_of_segments, unsigned short animation_delay) {
   this->_number_of_segments = number_of_segments;
-  this->_animation_delay    = animation_delay;
+  this->animation_delay     = animation_delay;
 }
 
 /**
@@ -90,7 +90,7 @@ void Strip::sequence_radiate(uint32_t color) {
   for (byte i = 0; i < 6; i++) {
     this->read(sequence[i]);
     this->write();
-    delay(this->_animation_delay);
+    delay(this->animation_delay);
   }
 } 
 
@@ -115,7 +115,7 @@ void Strip::sequence_scroll(uint32_t color) {
   for (byte i = 0; i < 10; i++) {
     this->read(sequence[i]);
     this->write();
-    delay(this->_animation_delay);
+    delay(this->animation_delay);
   }
 } 
 
@@ -148,7 +148,7 @@ void Strip::sequence_cylon(uint32_t color) {
   for (byte i = 0; i < 18; i++) {
     this->read(sequence[i]);
     this->write();
-    delay(this->_animation_delay);
+    delay(this->animation_delay);
   }
 } 
 
@@ -159,7 +159,7 @@ void Strip::sequence_fade(uint32_t alpha) {
     while(this->segments[0].alpha() > alpha) {
       this->alpha(this->segments[0].alpha() - 1);
       this->write();
-      delay(this->_animation_delay);
+      delay(this->animation_delay);
     }
   }
 
@@ -168,7 +168,7 @@ void Strip::sequence_fade(uint32_t alpha) {
     while(this->segments[0].alpha() < alpha) {
       this->alpha(this->segments[0].alpha() + 1);
       this->write();
-      delay(this->_animation_delay);
+      delay(this->animation_delay);
     }
   }
 }

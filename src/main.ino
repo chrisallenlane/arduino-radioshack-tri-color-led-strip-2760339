@@ -3,11 +3,11 @@
  * - More sequences (strobe)
  * - Write to PROGMEM where appropriate
  * - Segment methods: rgb()
- * - Comments (autodocs?) and README
+ * - README
  * - Pass arguments via structs?
- * - expose strip.animation_delay
  * - Convert into "proper" library?
  * - name and publish
+ * - sample sequences
  */
 
 #define STRIP_PINOUT (DDRC=0xFF)  // for UNO
