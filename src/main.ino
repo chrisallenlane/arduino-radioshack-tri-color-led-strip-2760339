@@ -2,12 +2,11 @@
  * @todo:
  * - More sequences (strobe)
  * - Write to PROGMEM where appropriate
- * - Segment methods: rgb()
  * - README
- * - Pass arguments via structs?
  * - Convert into "proper" library?
  * - name and publish
  * - sample sequences
+ * - move sequences into optional file? (Keep library small)
  */
 
 #define STRIP_PINOUT (DDRC=0xFF)  // for UNO

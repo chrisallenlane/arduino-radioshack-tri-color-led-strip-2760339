@@ -7,6 +7,16 @@
 
 
 /**
+ * Returns the color of the segment
+ *
+ * @return uint32_t color
+ */
+uint32_t Segment::color() {
+  return this->_color;
+}
+
+
+/**
  * The TM1803 documentation claims that the chip expects to receive color
  * information in RGB format, but from experimentation (unless I'm doing
  * something wrong that I'm not aware of, it seems to /really/ expect GBR. 
@@ -37,27 +47,12 @@ void Segment::color(uint32_t color) {
 
 
 /**
- * Returns the color of the segment
+ * Returns the alpha (opacity) of the segment.
  *
- * @return uint32_t color
+ * @return uint32_t alpha
  */
-uint32_t Segment::color() {
-  return this->_color;
-}
-
-
-/**
- * Pushes a 24-bit stream to the TM1803 bus. This will change the state of a
- * single segment.
- *
- * @return void
- */
-void Segment::write() {
-  uint32_t mask = 0x800000;
-  for (byte i = 0; i < 24; i++) {
-    (this->_gbr & mask) ? Segment::high() : Segment::low();
-    mask >>= 1;
-  }  
+uint32_t Segment::alpha() {
+  return this->_alpha;
 }
 
 
@@ -82,12 +77,17 @@ void Segment::alpha(uint32_t alpha) {
 
 
 /**
- * Returns the alpha (opacity) of the segment.
+ * Pushes a 24-bit stream to the TM1803 bus. This will change the state of a
+ * single segment.
  *
- * @return uint32_t alpha
+ * @return void
  */
-uint32_t Segment::alpha() {
-  return this->_alpha;
+void Segment::write() {
+  uint32_t mask = 0x800000;
+  for (byte i = 0; i < 24; i++) {
+    (this->_gbr & mask) ? Segment::high() : Segment::low();
+    mask >>= 1;
+  }  
 }
 
 

@@ -11,9 +11,6 @@ class Segment {
     uint32_t color();
     void color(uint32_t color);
 
-    //uint32_t rgb();
-    //void rgb(uint32_t rgb);
-
     void write();
     
     static void high();

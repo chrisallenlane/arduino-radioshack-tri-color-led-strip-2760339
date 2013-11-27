@@ -66,6 +66,13 @@ void Strip::write() {
 /*****************************************************************************
  * Sequences
  ****************************************************************************/
+
+/**
+ * Turns the strip a solid color
+ *
+ * @param uint32_t color
+ * @return void
+ */
 void Strip::sequence_solid(uint32_t color) {
   for (byte i = 0; i < this->_number_of_segments; i++) {
     this->segments[i].color(color);
@@ -74,6 +81,12 @@ void Strip::sequence_solid(uint32_t color) {
 }
 
 
+/**
+ * Makes the strip radiate light out from the center
+ *
+ * @param uint32_t color
+ * @return void
+ */
 void Strip::sequence_radiate(uint32_t color) {
   this->clear();
 
@@ -95,6 +108,12 @@ void Strip::sequence_radiate(uint32_t color) {
 } 
 
 
+/**
+ * Scrolls light in one direction across the strip
+ *
+ * @param uint32_t color
+ * @return void
+ */
 void Strip::sequence_scroll(uint32_t color) {
   this->clear();
 
@@ -120,6 +139,12 @@ void Strip::sequence_scroll(uint32_t color) {
 } 
 
 
+/**
+ * Boundes a light back and forth from end-to-end.
+ *
+ * @param uint32_t color
+ * @return void
+ */
 void Strip::sequence_cylon(uint32_t color) {
   this->clear();
 
@@ -153,6 +178,12 @@ void Strip::sequence_cylon(uint32_t color) {
 } 
 
 
+/**
+ * Fades the entire strip to the specified opacity
+ *
+ * @param uint32_t color
+ * @return void
+ */
 void Strip::sequence_fade(uint32_t alpha) {
   // fade out
   if (this->segments[0].alpha() > alpha) {
