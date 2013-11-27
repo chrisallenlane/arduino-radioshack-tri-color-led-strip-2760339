@@ -1,9 +1,9 @@
 /**
  * @todo:
- * - Sequence class
  * - More sequences
  * - Write to PROGMEM where appropriate
  * - Segment methods: alpha(), rgb(), fadeBy(), fadeTo()?
+ * - Comments (autodocs?) and README
  */
 
 #define STRIP_PINOUT (DDRC=0xFF)  // for UNO
@@ -16,7 +16,7 @@
 #include "../lib/segment.cpp"
 #include "../lib/strip.cpp"
 
-Strip strip(10, 250);
+Strip strip(10, 50);
   
 void setup() {
   // set the pinout
@@ -37,6 +37,6 @@ void loop() {
   uint32_t violet = 0x82EE82FF;
   uint32_t white  = 0xFFFFFFFF;
 
-  strip.sequence_solid(blue);
-  delay(5000);
+  strip.sequence_scroll(orange);
+  strip.sequence_scroll(red);
 }

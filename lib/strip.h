@@ -7,11 +7,12 @@ class Strip {
   public:
     Strip(byte number_of_segments, unsigned short animation_delay);
     void clear();
-    void write();
+    void read(uint32_t sequence[]);
+    void sequence_cylon(uint32_t color);
+    void sequence_radiate(uint32_t color);
+    void sequence_scroll(uint32_t color);
     void sequence_solid(uint32_t color);
-    //void sequence_cylon(uint32_t color);
-    //void sequence_radiate(uint32_t color);
-    //void sequence_scroll(uint32_t color);
+    void write();
     Segment segments[10];
 
   private:
