@@ -12,25 +12,18 @@
 
 #include <avr/pgmspace.h>
 
-#include "../lib/segment.h"
-#include "../lib/strip.h"
-
 #include "../lib/segment.cpp"
 #include "../lib/strip.cpp"
 
 Strip strip(10, 25);
   
 void setup() {
-
-
-  Serial.begin(9600);
-
   // set the pinout
   STRIP_PINOUT;
 
   // clear the strip
   strip.clear();
-  delay(1000);
+  delay(10);
 }
 
 void loop() {
@@ -49,7 +42,7 @@ void loop() {
   
   delay(500);
 
-  strip.sequence_solid(0x0000FFFF);
-  strip.sequence_fadeout();
-  strip.sequence_fadein();
+  strip.sequence_solid(0xFF00FFFF);
+  strip.sequence_fade(0x00);
+  strip.sequence_fade(0xFF);
 }

@@ -10,8 +10,7 @@ class Strip {
     void clear();
     void read(uint32_t sequence[]);
     void sequence_cylon(uint32_t color);
-    void sequence_fadein();
-    void sequence_fadeout();
+    void sequence_fade(uint32_t alpha);
     void sequence_radiate(uint32_t color);
     void sequence_scroll(uint32_t color);
     void sequence_solid(uint32_t color);

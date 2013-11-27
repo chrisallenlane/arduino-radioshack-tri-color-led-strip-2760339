@@ -40,7 +40,7 @@ void Segment::write() {
 }
 
 void Segment::alpha(uint32_t alpha) {
-  // prevent alpha from overflowing on bad values
+  // prevent alpha from overflowing
   alpha = (alpha > 255) ? 0 : alpha ;
 
   // set the new color
