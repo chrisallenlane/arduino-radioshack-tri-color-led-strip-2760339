@@ -19,6 +19,7 @@ class Strip {
     void sequence_radiate(uint32_t color);
     void sequence_scroll(uint32_t color);
     void sequence_solid(uint32_t color);
+    void sequence_strobe(uint32_t color);
 
     unsigned short animation_delay;
     Segment segments[10];

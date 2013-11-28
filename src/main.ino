@@ -5,9 +5,6 @@
  * - README
  * - Convert into "proper" library?
  * - name and publish
- * - sample sequences
- * - move sequences into optional file? (Keep library small)
- * - ability to play "generic" sequences?
  * - safety delay on Strip::write()?
  */
 
@@ -53,7 +50,6 @@ void loop() {
   strip.sequence_fade(0xFF);
   delay(500);
 
-
   // Alarm
   /*
   strip.animation_delay = 50;
@@ -72,5 +68,11 @@ void loop() {
   /*
   strip.animation_delay = 70;
   strip.sequence_radiate(yellow);
+  */
+
+  // Strobe
+  /*
+  strip.animation_delay = 150;
+  strip.sequence_strobe(0xFFFFFFFF);
   */
 }

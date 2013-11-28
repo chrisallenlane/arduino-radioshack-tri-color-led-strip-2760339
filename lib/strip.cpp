@@ -176,6 +176,23 @@ void Strip::sequence_cylon(uint32_t color) {
 
 
 /**
+ * Implements a strobe effect
+ *
+ * @param uint32_t color
+ * @return void
+ */
+void Strip::sequence_strobe(uint32_t color) {
+  this->clear();
+  this->sequence_solid(color);
+  // attempting to strobe for any less than 3ms seems to causing timing
+  // problems
+  delay(3);
+  this->clear();
+  delay(this->animation_delay);
+} 
+
+
+/**
  * Fades the entire strip to the specified opacity
  *
  * @param uint32_t color
