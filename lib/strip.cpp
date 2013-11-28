@@ -90,7 +90,6 @@ void Strip::sequence_solid(uint32_t color) {
 void Strip::sequence_radiate(uint32_t color) {
   this->clear();
 
-  // @todo: make number of lights in strip configurable
   uint32_t sequence[6][10] = {
     {OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
     {OFF   , OFF   , OFF   , OFF   , color , color , OFF   , OFF   , OFF   , OFF}   ,
@@ -117,7 +116,6 @@ void Strip::sequence_radiate(uint32_t color) {
 void Strip::sequence_scroll(uint32_t color) {
   this->clear();
 
-  // @todo: make number of lights in strip configurable
   uint32_t sequence[10][10] = {
     {color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
     {OFF   , color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
@@ -148,7 +146,6 @@ void Strip::sequence_scroll(uint32_t color) {
 void Strip::sequence_cylon(uint32_t color) {
   this->clear();
 
-  // @todo: make number of lights in strip configurable
   uint32_t sequence[18][10] = {
     {color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
     {OFF   , color , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF   , OFF}   ,
