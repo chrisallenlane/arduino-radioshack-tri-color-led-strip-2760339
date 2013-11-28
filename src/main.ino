@@ -1,10 +1,8 @@
 /**
  * @todo:
- * - Write to PROGMEM where appropriate
  * - README
  * - Convert into "proper" library?
  * - name and publish
- * - safety delay on Strip::write()?
  */
 
 #define STRIP_PINOUT (DDRC=0xFF)  // for UNO

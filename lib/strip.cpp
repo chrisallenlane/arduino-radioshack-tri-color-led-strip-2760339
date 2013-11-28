@@ -60,6 +60,10 @@ void Strip::write() {
     this->segments[i].write();
   }
   interrupts();
+
+  // This delay guarantees that timing problems will never occur as a result of
+  // invoking this method too rapidly
+  delay(3);
 }
 
 
@@ -184,9 +188,6 @@ void Strip::sequence_cylon(uint32_t color) {
 void Strip::sequence_strobe(uint32_t color) {
   this->clear();
   this->sequence_solid(color);
-  // attempting to strobe for any less than 3ms seems to causing timing
-  // problems
-  delay(3);
   this->clear();
   delay(this->animation_delay);
 } 
