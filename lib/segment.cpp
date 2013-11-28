@@ -29,20 +29,20 @@ uint32_t Segment::color() {
  */
 void Segment::color(uint32_t color) {
   // parse the RGBA color into its constituent bytes
-  this->_color     = color;
-  this->_red       = (uint32_t) (color >> 24);
-  this->_green     = (uint32_t) ((color << 8) >> 24);
-  this->_blue      = (uint32_t) ((color << 16) >> 24);
-  this->_alpha     = (uint32_t) (color << 24) >> 24;
+  this->_color   = color;
+  this->_red     = (uint32_t) (color >> 24);
+  this->_green   = (uint32_t) ((color << 8) >> 24);
+  this->_blue    = (uint32_t) ((color << 16) >> 24);
+  this->_alpha   = (uint32_t) (color << 24) >> 24;
 
   // adjust the RGB values per the alpha modifier
-  float mod        = (float)    this->_alpha / (float) 255;
-  uint32_t red     = (uint32_t) this->_red   * mod;
-  uint32_t green   = (uint32_t) this->_green * mod;
-  uint32_t blue    = (uint32_t) this->_blue  * mod;
+  float mod      = (float)    this->_alpha / (float) 255;
+  uint32_t red   = (uint32_t) this->_red   * mod;
+  uint32_t green = (uint32_t) this->_green * mod;
+  uint32_t blue  = (uint32_t) this->_blue  * mod;
 
   // assemble a GBR byte
-  this->_gbr = (green << 16) | (blue << 8) | red;
+  this->_gbr     = (green << 16) | (blue << 8) | red;
 }
 
 

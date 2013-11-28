@@ -1,6 +1,5 @@
 /**
  * @todo:
- * - More sequences (strobe)
  * - Write to PROGMEM where appropriate
  * - README
  * - Convert into "proper" library?
@@ -30,8 +29,7 @@ void setup() {
 
 // Go!
 void loop() {
-
-  // @todo: write some example sequences here
+  // @todo: put these somewhere?
   uint32_t red    = 0xFF0000FF;
   uint32_t orange = 0xFFA500FF;
   uint32_t yellow = 0xFFFF00FF;
@@ -40,13 +38,25 @@ void loop() {
   uint32_t indigo = 0x4B0082FF;
   uint32_t violet = 0x82EE82FF;
   uint32_t white  = 0xFFFFFFFF;
-  
 
 
   // Fade in/out
-  //strip.sequence_solid(0xFF00FFFF);
+  /*
   strip.sequence_solid(0x0033FFFF);
   strip.sequence_fade(0x00);
+  strip.sequence_fade(0xFF);
+  delay(500);
+  */
+
+  // Random fade in/out
+  strip.sequence_fade(0x00);
+
+  uint32_t random_color = (random(1, 16777215) << 8);
+
+  for (byte i = 0; i < 10; i++) {
+    strip.segments[i].color(random_color);
+  }
+
   strip.sequence_fade(0xFF);
   delay(500);
 
@@ -56,7 +66,6 @@ void loop() {
   strip.sequence_scroll(red);
   strip.sequence_scroll(orange);
   */
-
 
   // Cylon
   /*
