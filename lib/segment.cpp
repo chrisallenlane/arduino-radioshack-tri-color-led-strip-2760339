@@ -19,7 +19,7 @@ uint32_t Segment::color() {
 /**
  * The TM1803 documentation claims that the chip expects to receive color
  * information in RGB format, but from experimentation (unless I'm doing
- * something wrong that I'm not aware of, it seems to /really/ expect GBR. 
+ * something wrong), it seems to /really/ expect GBR. 
  *
  * This method takes an RGB hex code, converts it to GBR, and then adjusts for
  * alpha.
